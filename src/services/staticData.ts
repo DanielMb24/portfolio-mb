@@ -51,7 +51,7 @@ export const staticProjects: Project[] = [
     titre: "Porfolio professionnel",
     description: "Porfolio professionnel, presente les projets, les technologies etc",
     technologies: ["React", "TypeScript", "Node.js", "TailwindCSS"],
-    image_url: "../../public/cpe_pf.png",
+    image_url: "/cpe_pf.png",
     github_url: "https://github.com/DanielMb24/web-profile-pro-08",
     demo_url: "https://web-profile-pro-08.vercel.app/",
     statut: "actif"
@@ -61,7 +61,7 @@ export const staticProjects: Project[] = [
     titre: "Application de gestion des taches",
     description: "",
     technologies: ["React", "TypeScript", "Node.js", "TailwindCSS"],
-    image_url: "../../public/cpe_my_tf.png",
+    image_url: "/cpe_my_tf.png",
     github_url: "https://github.com/DanielMb24/my_Task",
     demo_url: "https://my-tf.vercel.app/",
     statut: "actif"
@@ -71,7 +71,7 @@ export const staticProjects: Project[] = [
     titre: "Application de gestion de modules",
     description: ".",
     technologies: ["React", "TypeScript", "Node.js", "TailwindCSS"],
-    image_url: "../../public/cpe_my_md.png",
+    image_url: "/cpe_my_md.png",
     github_url: "https://github.com/DanielMb24/mes-modules",
     demo_url: "https://my-md.vercel.app/",
     statut: "actif"
