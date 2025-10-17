@@ -38,7 +38,7 @@ const Hero = () => {
                   </ButtonVariants>
 
                   {/* Bouton Télécharger CV */}
-                  <a href="/CV_Makosso_Daniel.pdf" download>
+                  <a href="/CvDanielMakosso.pdf" download>
                     <ButtonVariants variant="glass" size="lg">
                       <Download className="mr-2" size={20} />
                       Télécharger CV

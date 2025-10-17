@@ -90,41 +90,41 @@ export const staticProjects: Project[] = [
 
 export const staticSkills: Record<string, Skill[]> = {
   "Frontend": [
-    { nom: "HTML5", niveau: 80, categorie: "Frontend", icone: "Code" },
-    { nom: "CSS3", niveau: 80, categorie: "Frontend", icone: "Palette" },
-    { nom: "JavaScript", niveau: 75, categorie: "Frontend", icone: "Code" },
-    { nom: "TypeScript", niveau: 75, categorie: "Frontend", icone: "Code" },
-    { nom: "React", niveau: 70, categorie: "Frontend", icone: "Code" },
-    { nom: "Next.js", niveau: 85, categorie: "Frontend", icone: "Code" },
-    { nom: "TailwindCSS", niveau: 80, categorie: "Frontend", icone: "Palette" },
+    { nom: "HTML5", niveau: 70, categorie: "Frontend", icone: "Code" },
+    { nom: "CSS3", niveau: 70, categorie: "Frontend", icone: "Palette" },
+    { nom: "JavaScript", niveau: 65, categorie: "Frontend", icone: "Code" },
+    { nom: "TypeScript", niveau: 65, categorie: "Frontend", icone: "Code" },
+    { nom: "React", niveau: 60, categorie: "Frontend", icone: "Code" },
+    { nom: "Next.js", niveau: 55, categorie: "Frontend", icone: "Code" },
+    { nom: "TailwindCSS", niveau: 70, categorie: "Frontend", icone: "Palette" },
 
   ],
   "Backend": [
-    { nom: "Node.js", niveau: 70, categorie: "Backend", icone: "Database" },
-    { nom: "Express.js", niveau: 70, categorie: "Backend", icone: "Database" },
-    { nom: "MySQL", niveau: 95, categorie: "Backend", icone: "Database" },
-    { nom: "PostgreSQL", niveau: 60, categorie: "Backend", icone: "Database" },
+    { nom: "Node.js", niveau: 60, categorie: "Backend", icone: "Database" },
+    { nom: "Express.js", niveau: 60, categorie: "Backend", icone: "Database" },
+    { nom: "MySQL", niveau: 75, categorie: "Backend", icone: "Database" },
+    { nom: "PostgreSQL", niveau: 50, categorie: "Backend", icone: "Database" },
 
-    { nom: "PHP", niveau: 70, categorie: "Backend", icone: "Code" },
-    { nom: "API REST", niveau: 88, categorie: "Backend", icone: "Database" }
+    { nom: "PHP", niveau: 60, categorie: "Backend", icone: "Code" },
+    { nom: "API REST", niveau: 48, categorie: "Backend", icone: "Database" }
   ],
   "Outils & Technologies": [
-    { nom: "Git/GitHub", niveau: 80, categorie: "Outils & Technologies", icone: "Settings" },
+    { nom: "Git/GitHub", niveau: 60, categorie: "Outils & Technologies", icone: "Settings" },
     { nom: "VS Code", niveau: 100, categorie: "Outils & Technologies", icone: "Settings" },
     { nom: "Adobe XD", niveau: 85, categorie: "Outils & Technologies", icone: "Settings" },
-    { nom: "Figma", niveau: 75, categorie: "Outils & Technologies", icone: "Palette" },
-    { nom: "Postman", niveau: 80, categorie: "Outils & Technologies", icone: "Settings" },
-    { nom: "Vercel", niveau: 85, categorie: "Outils & Technologies", icone: "Settings" },
-        { nom: "PhpStorm", niveau: 80, categorie: "Outils & Technologies", icone: "Settings" },
+    { nom: "Figma", niveau: 60, categorie: "Outils & Technologies", icone: "Palette" },
+    { nom: "Postman", niveau: 70, categorie: "Outils & Technologies", icone: "Settings" },
+    { nom: "Vercel", niveau: 55, categorie: "Outils & Technologies", icone: "Settings" },
+        { nom: "PhpStorm", niveau: 70, categorie: "Outils & Technologies", icone: "Settings" },
     { nom: "WebStorm", niveau: 85, categorie: "Outils & Technologies", icone: "Settings" },
     { nom: "intelliJ", niveau: 80, categorie: "Outils & Technologies", icone: "Settings" },
     { nom: "PyCharm", niveau: 85, categorie: "Outils & Technologies", icone: "Settings" },
 
   ],
   "Langages Programmations": [
-    { nom: "C", niveau: 70, categorie: "Langages", icone: "Code" },
-    { nom: "C++", niveau: 70, categorie: "Langages", icone: "Code" },
-    { nom: "C#", niveau: 70, categorie: "Langages", icone: "Code" },
+    { nom: "C", niveau: 60, categorie: "Langages", icone: "Code" },
+    { nom: "C++", niveau: 60, categorie: "Langages", icone: "Code" },
+    { nom: "C#", niveau: 60, categorie: "Langages", icone: "Code" },
     { nom: "Python", niveau: 65, categorie: "Langages", icone: "Code" },
     { nom: "Java", niveau: 60, categorie: "Langages", icone: "Code" }
   ]
