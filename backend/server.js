@@ -19,9 +19,31 @@ connectDB();
 
 // Middleware de sécurité
 app.use(helmet());
+
+// Configuration CORS pour production et développement
+const allowedOrigins = [
+  process.env.FRONTEND_URL,
+  "http://localhost:8080",
+  "http://localhost:5173",
+  "https://web-profile-pro-08.vercel.app",
+  "https://danielmb.vercel.app",
+].filter(Boolean);
+
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL || "http://localhost:8080",
+    origin: function (origin, callback) {
+      // Autoriser les requêtes sans origin (mobile apps, curl, etc.)
+      if (!origin) return callback(null, true);
+
+      if (
+        allowedOrigins.indexOf(origin) !== -1 ||
+        origin.endsWith(".vercel.app")
+      ) {
+        callback(null, true);
+      } else {
+        callback(new Error("Non autorisé par CORS"));
+      }
+    },
     credentials: true,
   }),
 );
@@ -69,11 +91,13 @@ app.use((error, _req, res, _next) => {
   });
 });
 
-// Démarrage du serveur
-app.listen(PORT, () => {
-  console.log(`🚀 Serveur portfolio démarré sur le port ${PORT}`);
-  console.log(`📊 Environnement: ${process.env.NODE_ENV || "development"}`);
-  console.log(`🗄️  Base de données: MongoDB`);
-});
+// Démarrage du serveur (seulement en développement local)
+if (process.env.NODE_ENV !== "production") {
+  app.listen(PORT, () => {
+    console.log(`🚀 Serveur portfolio démarré sur le port ${PORT}`);
+    console.log(`📊 Environnement: ${process.env.NODE_ENV || "development"}`);
+    console.log(`🗄️  Base de données: MongoDB`);
+  });
+}
 
 module.exports = app;
