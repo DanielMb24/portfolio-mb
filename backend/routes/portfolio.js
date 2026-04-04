@@ -59,7 +59,18 @@ router.get("/skills", async (req, res) => {
     }
 
     const skills = await Skill.find(filter).sort({ categorie: 1, ordre: 1 });
-    res.json(skills);
+
+    // Grouper par catégorie pour le frontend
+    const groupedSkills = skills.reduce((acc, skill) => {
+      const category = skill.categorie || "Autres";
+      if (!acc[category]) {
+        acc[category] = [];
+      }
+      acc[category].push(skill);
+      return acc;
+    }, {});
+
+    res.json(groupedSkills);
   } catch (error) {
     console.error("Erreur récupération compétences:", error);
     res

@@ -30,6 +30,7 @@ const allowedOrigins = [
   "http://localhost:5173",
   "https://web-profile-pro-08.vercel.app",
   "https://danielmb.vercel.app",
+  "https://daniel-mb.vercel.app",
 ].filter(Boolean);
 
 app.use(
