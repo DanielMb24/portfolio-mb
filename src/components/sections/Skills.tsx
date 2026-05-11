@@ -1,23 +1,8 @@
-import {
-  Code,
-  Database,
-  Palette,
-  Smartphone,
-  Globe,
-  Settings,
-  type LucideIcon,
-} from "lucide-react";
+import { Link } from "react-router-dom";
+import { ArrowRight, Sparkles } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { useSkills } from "@/hooks/usePortfolio";
-
-const iconMap: Record<string, LucideIcon> = {
-  Code,
-  Database,
-  Palette,
-  Smartphone,
-  Globe,
-  Settings,
-};
+import { getAverageLevel, toSkillCategories } from "@/services/skillDisplay";
 
 const Skills = () => {
   const { data: skillsData = {}, isLoading, error } = useSkills();
@@ -37,39 +22,13 @@ const Skills = () => {
     console.error("Erreur lors du chargement des compétences:", error);
   }
 
-  // Transform data for display
-  const skillCategories = Object.entries(skillsData).map(
-    ([categoryName, skills]) => {
-      // Try to get appropriate icon based on category name
-      let IconComponent = Code; // default
-      if (categoryName.toLowerCase().includes("frontend")) IconComponent = Code;
-      else if (categoryName.toLowerCase().includes("backend"))
-        IconComponent = Database;
-      else if (categoryName.toLowerCase().includes("design"))
-        IconComponent = Palette;
-      else if (categoryName.toLowerCase().includes("mobile"))
-        IconComponent = Smartphone;
-      else if (
-        categoryName.toLowerCase().includes("cloud") ||
-        categoryName.toLowerCase().includes("devops")
-      )
-        IconComponent = Globe;
-      else if (
-        categoryName.toLowerCase().includes("outils") ||
-        categoryName.toLowerCase().includes("tools")
-      )
-        IconComponent = Settings;
-
-      return {
-        name: categoryName,
-        icon: IconComponent,
-        color: "text-primary", // Use theme color
-        skills: skills.map((skill) => ({
-          name: skill.nom,
-          level: skill.niveau,
-        })),
-      };
-    },
+  const skillCategories = toSkillCategories(skillsData);
+  const totalSkills = skillCategories.reduce(
+    (total, category) => total + category.skills.length,
+    0,
+  );
+  const previewSkills = skillCategories.flatMap((category) =>
+    category.skills.slice(0, 2).map((skill) => skill.name),
   );
 
   return (
@@ -77,79 +36,79 @@ const Skills = () => {
       <div className="container mx-auto px-6">
         <div className="mb-12 grid gap-6 md:grid-cols-[0.8fr_1fr] md:items-end">
           <div className="space-y-4">
-          <span className="section-kicker">Expertise</span>
-          <h2 className="text-4xl md:text-5xl font-extrabold tracking-normal">
-            Compétences{" "}
-            <span className="text-gradient">Techniques</span>
-          </h2>
+            <span className="section-kicker">Expertise</span>
+            <h2 className="section-title">
+              Compétences <span className="text-gradient">Techniques</span>
+            </h2>
           </div>
-          <p className="text-base leading-7 text-muted-foreground md:text-right">
-            Technologies et outils que je maîtrise pour créer des solutions
-            performantes
+          <p className="max-w-xl text-base leading-7 text-muted-foreground md:ml-auto md:text-right">
+            Un aperçu rapide de ma stack. La page dédiée présente chaque
+            compétence avec son niveau détaillé.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {skillCategories.map((category, categoryIndex) => (
-            <Card
-              key={category.name}
-              className="card-modern group animate-fade-in"
-              style={{ animationDelay: `${categoryIndex * 0.1}s` }}
-            >
-              <CardContent className="p-6 space-y-6">
-                <div className="flex items-center gap-3">
-                  <div className="border border-border bg-muted p-2.5 transition-colors group-hover:bg-background">
-                    <category.icon className="text-secondary w-5 h-5" />
-                  </div>
-                  <h3 className="font-semibold text-lg">{category.name}</h3>
+        <div className="mx-auto grid max-w-6xl gap-6 lg:grid-cols-[0.92fr_1.08fr]">
+          <Card className="card-modern overflow-hidden">
+            <CardContent className="space-y-6 p-6 md:p-8">
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <p className="font-mono text-xs font-bold uppercase text-secondary">
+                    Vue générale
+                  </p>
+                  <h3 className="mt-2 text-3xl font-black">
+                    {totalSkills} compétences recensées
+                  </h3>
                 </div>
-
-                <div className="space-y-4">
-                  {category.skills.map((skill, skillIndex) => (
-                    <div key={skill.name} className="space-y-2">
-                      <div className="flex justify-between items-baseline">
-                        <span className="text-sm font-medium text-foreground">
-                          {skill.name}
-                        </span>
-                        <span className="text-xs font-semibold text-secondary">
-                          {skill.level}%
-                        </span>
-                      </div>
-                      <div className="h-2 overflow-hidden bg-muted shadow-inner">
-                        <div
-                          className="h-full bg-secondary transition-all duration-1000 ease-out"
-                          style={{
-                            width: `${skill.level}%`,
-                            animationDelay: `${categoryIndex * 0.1 + skillIndex * 0.05}s`,
-                          }}
-                        />
-                      </div>
-                    </div>
-                  ))}
+                <div className="rounded-2xl border border-secondary/15 bg-secondary/10 p-3">
+                  <Sparkles className="h-5 w-5 text-secondary" />
                 </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-
-        <div className="mt-16">
-          <div className="card-modern relative overflow-hidden p-8 md:p-12">
-            <div className="relative z-10 max-w-3xl mx-auto text-center space-y-4">
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-secondary/10 border border-secondary/20 text-sm font-bold text-secondary mb-4">
-                <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-secondary"></span>
-                </span>
-                En constante évolution
               </div>
-              <h3 className="text-2xl md:text-3xl font-bold">
-                Apprentissage{" "}
-                <span className="text-gradient">Continu</span>
-              </h3>
-              <p className="text-muted-foreground leading-relaxed text-lg">
-                Passionné par l'innovation technologique, je reste à l'affût des
-                dernières tendances et meilleures pratiques pour offrir des
-                solutions modernes et performantes.
+
+              <div className="grid grid-cols-2 gap-3">
+                {skillCategories.slice(0, 4).map((category) => (
+                  <div
+                    key={category.name}
+                    className="rounded-2xl border border-border bg-background/70 p-4"
+                  >
+                    <category.icon className="mb-3 h-5 w-5 text-secondary" />
+                    <p className="text-sm font-bold">{category.name}</p>
+                    <p className="mt-1 text-xs text-muted-foreground">
+                      {category.skills.length} éléments · moyenne{" "}
+                      {getAverageLevel(category.skills)}%
+                    </p>
+                  </div>
+                ))}
+              </div>
+
+              <Link
+                to="/skills"
+                className="inline-flex items-center gap-2 rounded-2xl bg-primary px-5 py-3 text-sm font-bold text-primary-foreground transition-all hover:-translate-y-0.5 hover:bg-secondary"
+              >
+                Voir toutes les compétences
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </CardContent>
+          </Card>
+
+          <div className="soft-panel p-6 md:p-8">
+            <p className="mb-5 font-mono text-xs font-bold uppercase text-muted-foreground">
+              Stack principale
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {previewSkills.slice(0, 12).map((skill) => (
+                <span
+                  key={skill}
+                  className="rounded-full border border-secondary/15 bg-secondary/10 px-3 py-1.5 text-xs font-bold text-foreground"
+                >
+                  {skill}
+                </span>
+              ))}
+            </div>
+            <div className="mt-8 border-t border-border pt-6">
+              <h3 className="text-2xl font-black">Apprentissage continu</h3>
+              <p className="mt-3 text-sm leading-7 text-muted-foreground">
+                Je consolide mes bases frontend, backend, bases de données et
+                outils de développement en travaillant sur des projets concrets.
               </p>
             </div>
           </div>

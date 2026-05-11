@@ -1,5 +1,6 @@
 
 import type { Config } from "tailwindcss";
+import animate from "tailwindcss-animate";
 
 export default {
   darkMode: ["class"],
@@ -20,6 +21,7 @@ export default {
     },
     extend: {
       fontFamily: {
+        sans: ["JetBrains Mono", "ui-monospace", "monospace"],
         inter: ["JetBrains Mono", "ui-monospace", "monospace"],
         mono: ["JetBrains Mono", "ui-monospace", "monospace"],
       },
@@ -107,5 +109,5 @@ export default {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [animate],
 } satisfies Config;

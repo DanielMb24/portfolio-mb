@@ -1,5 +1,29 @@
 const API_BASE_URL =
   import.meta.env.VITE_API_URL || "https://danielmb-api.vercel.app/api";
+const API_ASSET_BASE_URL = API_BASE_URL.replace(/\/api\/?$/, "");
+
+export const resolveMediaUrl = (
+  url: string | undefined,
+  fallback = "/placeholder.svg",
+) => {
+  if (!url) return fallback;
+
+  const cleanUrl = url.trim();
+  if (!cleanUrl) return fallback;
+  if (/^(https?:)?\/\//.test(cleanUrl) || cleanUrl.startsWith("data:")) {
+    return cleanUrl;
+  }
+
+  if (cleanUrl.startsWith("/uploads/")) {
+    return `${API_ASSET_BASE_URL}${cleanUrl}`;
+  }
+
+  if (cleanUrl.startsWith("uploads/")) {
+    return `${API_ASSET_BASE_URL}/${cleanUrl}`;
+  }
+
+  return cleanUrl.startsWith("/") ? cleanUrl : `/${cleanUrl}`;
+};
 
 // Types pour l'API
 export interface PersonalInfo {
@@ -16,6 +40,7 @@ export interface PersonalInfo {
 }
 
 export interface Project {
+  id?: number;
   _id?: string;
   titre: string;
   description: string;
@@ -337,7 +362,7 @@ class ApiService {
   }
 
   // Generic methods for flexibility
-  async get<T = any>(endpoint: string): Promise<T> {
+  async get<T = unknown>(endpoint: string): Promise<T> {
     const response = await fetch(`${API_BASE_URL}${endpoint}`, {
       headers: this.getHeaders(),
     });
@@ -350,7 +375,10 @@ class ApiService {
     return await response.json();
   }
 
-  async post<T = any>(endpoint: string, data: Record<string, any>): Promise<T> {
+  async post<T = unknown>(
+    endpoint: string,
+    data: Record<string, unknown>,
+  ): Promise<T> {
     const response = await fetch(`${API_BASE_URL}${endpoint}`, {
       method: "POST",
       headers: this.getHeaders(),
@@ -365,7 +393,10 @@ class ApiService {
     return await response.json();
   }
 
-  async put<T = any>(endpoint: string, data: Record<string, any>): Promise<T> {
+  async put<T = unknown>(
+    endpoint: string,
+    data: Record<string, unknown>,
+  ): Promise<T> {
     const response = await fetch(`${API_BASE_URL}${endpoint}`, {
       method: "PUT",
       headers: this.getHeaders(),
@@ -380,7 +411,7 @@ class ApiService {
     return await response.json();
   }
 
-  async delete<T = any>(endpoint: string): Promise<T> {
+  async delete<T = unknown>(endpoint: string): Promise<T> {
     const response = await fetch(`${API_BASE_URL}${endpoint}`, {
       method: "DELETE",
       headers: this.getHeaders(),

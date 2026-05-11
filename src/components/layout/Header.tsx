@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Menu, X } from "lucide-react";
+import { ArrowUpRight, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ThemeToggle";
 
@@ -23,7 +23,7 @@ const Header = () => {
   };
 
   return (
-    <header className="fixed top-0 z-50 w-full border-b border-border bg-background/90 backdrop-blur-xl">
+    <header className="fixed top-0 z-50 w-full border-b border-white/60 bg-background/80 backdrop-blur-2xl dark:border-white/10">
       <div className="container mx-auto px-6">
         <div className="flex h-16 items-center justify-between">
           <div className="flex-shrink-0">
@@ -32,7 +32,7 @@ const Header = () => {
               className="group flex items-center gap-3"
               aria-label="Retour à l'accueil"
             >
-              <span className="grid h-9 w-9 place-items-center bg-primary text-sm font-black text-primary-foreground shadow-button">
+              <span className="grid h-10 w-10 place-items-center rounded-2xl bg-primary text-sm font-black text-primary-foreground shadow-button">
                 DM
               </span>
               <span className="hidden text-left sm:block">
@@ -46,12 +46,12 @@ const Header = () => {
             </button>
           </div>
 
-          <nav className="hidden items-center gap-1 border border-border bg-card p-1 shadow-glass md:flex">
+          <nav className="hidden items-center gap-1 rounded-full border border-white/70 bg-card/80 p-1.5 shadow-glass backdrop-blur md:flex dark:border-white/10">
             {navItems.map((item) => (
               <button
                 key={item.href}
                 onClick={() => scrollToSection(item.href)}
-                className="px-4 py-2 text-sm font-semibold text-muted-foreground transition-colors duration-200 hover:bg-muted hover:text-foreground"
+                className="rounded-full px-4 py-2 text-sm font-semibold text-muted-foreground transition-all duration-200 hover:bg-primary hover:text-primary-foreground"
               >
                 {item.label}
               </button>
@@ -59,6 +59,13 @@ const Header = () => {
           </nav>
 
           <div className="hidden items-center gap-2 md:flex">
+            <button
+              onClick={() => scrollToSection("#contact")}
+              className="inline-flex items-center gap-2 rounded-full border border-secondary/20 bg-secondary/10 px-4 py-2 text-sm font-bold text-secondary transition-all hover:bg-secondary hover:text-secondary-foreground"
+            >
+              Discuter
+              <ArrowUpRight className="h-4 w-4" />
+            </button>
             <ThemeToggle />
           </div>
 
@@ -69,7 +76,7 @@ const Header = () => {
               size="sm"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               aria-label={isMenuOpen ? "Fermer le menu" : "Ouvrir le menu"}
-              className="rounded-none"
+              className="rounded-xl"
             >
               {isMenuOpen ? (
                 <X className="h-6 w-6" />
@@ -82,12 +89,12 @@ const Header = () => {
 
         {isMenuOpen && (
           <div className="pb-4 md:hidden">
-            <div className="space-y-1 border border-border bg-card p-2 shadow-card">
+            <div className="space-y-1 rounded-3xl border border-white/70 bg-card/95 p-2 shadow-card backdrop-blur dark:border-white/10">
               {navItems.map((item) => (
                 <button
                   key={item.href}
                   onClick={() => scrollToSection(item.href)}
-                  className="block w-full px-3 py-3 text-left text-sm font-semibold text-muted-foreground transition-colors duration-200 hover:bg-muted hover:text-foreground"
+                  className="block w-full rounded-2xl px-3 py-3 text-left text-sm font-semibold text-muted-foreground transition-colors duration-200 hover:bg-muted hover:text-foreground"
                 >
                   {item.label}
                 </button>

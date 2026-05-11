@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent } from "@/components/ui/card";
 import {
+  ArrowUpRight,
   Mail,
   Phone,
   MapPin,
@@ -22,6 +23,15 @@ interface ContactFormData {
   message: string;
 }
 
+const formatSocialInfo = (url: string) => {
+  try {
+    const parsedUrl = new URL(url);
+    return parsedUrl.pathname.replace(/^\/|\/$/g, "") || parsedUrl.hostname;
+  } catch {
+    return url;
+  }
+};
+
 const Contact = () => {
   const { toast } = useToast();
   const [formData, setFormData] = useState<ContactFormData>({
@@ -30,6 +40,23 @@ const Contact = () => {
     message: "",
   });
   const [isLoading, setIsLoading] = useState(false);
+
+  const socialLinks = [
+    { label: "GitHub", value: staticPersonalInfo.github_url, icon: Github },
+    {
+      label: "LinkedIn",
+      value: staticPersonalInfo.linkedin_url,
+      icon: Linkedin,
+    },
+    {
+      label: "Facebook",
+      value: staticPersonalInfo.facebook_url,
+      icon: Facebook,
+    },
+  ].filter(
+    (item): item is { label: string; value: string; icon: typeof Github } =>
+      Boolean(item.value),
+  );
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -92,110 +119,121 @@ const Contact = () => {
       <div className="container mx-auto px-6 relative z-10">
         <div className="mb-12 grid gap-6 md:grid-cols-[0.8fr_1fr] md:items-end">
           <div className="space-y-4">
-          <span className="section-kicker">Contact</span>
-          <h2 className="text-4xl md:text-5xl font-extrabold tracking-normal">
-            Travaillons <span className="text-gradient">Ensemble</span>
-          </h2>
+            <span className="section-kicker">Contact</span>
+            <h2 className="section-title">
+              Travaillons <span className="text-gradient">Ensemble</span>
+            </h2>
           </div>
-          <p className="text-base leading-7 text-muted-foreground md:text-right">
+          <p className="max-w-xl text-base leading-7 text-muted-foreground md:ml-auto md:text-right">
             Un projet en tête ? Une question ? Je suis à votre écoute
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-5 gap-8 max-w-6xl mx-auto">
-          <div className="lg:col-span-2 space-y-6">
-            <div className="space-y-4">
-              <Card className="card-modern">
-                <CardContent className="p-5">
-                  <div className="flex items-start gap-4">
-                    <div className="p-3 bg-muted border border-border">
-                      <Mail className="w-5 h-5 text-secondary" />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <h3 className="font-semibold mb-1">Email</h3>
-                      <a
-                        href={`mailto:${staticPersonalInfo.email_contact}`}
-                        className="text-sm text-muted-foreground hover:text-secondary transition-colors break-all"
-                      >
-                        {staticPersonalInfo.email_contact}
-                      </a>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
+        <div className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-5">
+          <div className="space-y-6 lg:col-span-2">
+            <div className="card-modern overflow-hidden">
+              <div className="border-b border-border/70 bg-primary p-6 text-primary-foreground">
+                <p className="font-mono text-xs font-bold uppercase text-primary-foreground/70">
+                  Disponible
+                </p>
+                <h3 className="mt-2 text-2xl font-black">
+                  Parlons de votre projet web
+                </h3>
+                <p className="mt-3 text-sm leading-6 text-primary-foreground/75">
+                  Une interface, une application ou une amélioration technique :
+                  envoyez-moi les grandes lignes.
+                </p>
+              </div>
 
-              <Card className="card-modern">
-                <CardContent className="p-5">
-                  <div className="flex items-start gap-4">
-                    <div className="p-3 bg-secondary/10 border border-secondary/20">
-                      <Phone className="w-5 h-5 text-secondary" />
-                    </div>
-                    <div className="flex-1">
-                      <h3 className="font-semibold mb-1">Téléphone</h3>
-                      <a
-                        href="tel:+24174604327"
-                        className="text-sm text-muted-foreground hover:text-secondary transition-colors"
-                      >
-                        +241 74604327
-                      </a>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
+              <div className="space-y-1 p-3">
+                {[
+                  {
+                    icon: Mail,
+                    label: "Email",
+                    value: staticPersonalInfo.email_contact,
+                    href: `mailto:${staticPersonalInfo.email_contact}`,
+                  },
+                  {
+                    icon: Mail,
+                    label: "Email 2",
+                    value: "daniel.makosso@devgroup.ga",
+                    href: `mailto:${"daniel.makosso@devgroup.ga"}`,
+                  },
+                  {
+                    icon: Phone,
+                    label: "Téléphone",
+                    value: "+241 74604327 / 60189503",
+                    href: "tel:+24174604327",
+                  },
+                  {
+                    icon: MapPin,
+                    label: "Localisation",
+                    value: staticPersonalInfo.localisation,
+                  },
+                ].map((item) => {
+                  const content = (
+                    <>
+                      <span className="rounded-2xl border border-secondary/15 bg-secondary/10 p-3">
+                        <item.icon className="h-5 w-5 text-secondary" />
+                      </span>
+                      <span className="min-w-0 flex-1">
+                        <span className="block text-sm font-bold">
+                          {item.label}
+                        </span>
+                        <span className="block truncate text-sm text-muted-foreground">
+                          {item.value}
+                        </span>
+                      </span>
+                      {item.href && <ArrowUpRight className="h-4 w-4" />}
+                    </>
+                  );
 
-              <Card className="card-modern">
-                <CardContent className="p-5">
-                  <div className="flex items-start gap-4">
-                    <div className="p-3 bg-secondary/10 border border-secondary/20">
-                      <MapPin className="w-5 h-5 text-accent" />
+                  return item.href ? (
+                    <a
+                      key={item.label}
+                      href={item.href}
+                      className="flex items-center gap-4 rounded-2xl p-3 transition-colors hover:bg-muted"
+                    >
+                      {content}
+                    </a>
+                  ) : (
+                    <div
+                      key={item.label}
+                      className="flex items-center gap-4 rounded-2xl p-3"
+                    >
+                      {content}
                     </div>
-                    <div className="flex-1">
-                      <h3 className="font-semibold mb-1">Localisation</h3>
-                      <p className="text-sm text-muted-foreground">
-                        {staticPersonalInfo.localisation}
-                      </p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
+                  );
+                })}
+              </div>
             </div>
 
             <div className="pt-4">
               <h3 className="font-semibold mb-4">Retrouvez-moi sur</h3>
-              <div className="flex gap-3">
-                {staticPersonalInfo.github_url && (
+              <div className="grid gap-3">
+                {socialLinks.map((social) => (
                   <a
-                    href={staticPersonalInfo.github_url}
+                    key={social.label}
+                    href={social.value}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="border border-border bg-card p-3 shadow-card transition-colors hover:border-foreground/30 hover:bg-muted"
-                    aria-label="GitHub"
+                    className="flex items-center gap-3 rounded-2xl border border-border bg-card px-4 py-3 shadow-card transition-all hover:-translate-y-0.5 hover:border-secondary/35 hover:bg-muted"
+                    aria-label={social.label}
                   >
-                    <Github className="w-5 h-5" />
+                    <span className="rounded-xl border border-secondary/15 bg-secondary/10 p-2 text-secondary">
+                      <social.icon className="h-4 w-4" />
+                    </span>
+                    <span className="min-w-0 flex-1">
+                      <span className="block text-sm font-bold">
+                        {social.label}
+                      </span>
+                      <span className="block truncate text-xs text-muted-foreground">
+                        {formatSocialInfo(social.value)}
+                      </span>
+                    </span>
+                    <ArrowUpRight className="h-4 w-4 text-muted-foreground" />
                   </a>
-                )}
-                {staticPersonalInfo.linkedin_url && (
-                  <a
-                    href={staticPersonalInfo.linkedin_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="border border-border bg-card p-3 shadow-card transition-colors hover:border-foreground/30 hover:bg-muted"
-                    aria-label="LinkedIn"
-                  >
-                    <Linkedin className="w-5 h-5" />
-                  </a>
-                )}
-                {staticPersonalInfo.facebook_url && (
-                  <a
-                    href={staticPersonalInfo.facebook_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="border border-border bg-card p-3 shadow-card transition-colors hover:border-foreground/30 hover:bg-muted"
-                    aria-label="Facebook"
-                  >
-                    <Facebook className="w-5 h-5" />
-                  </a>
-                )}
+                ))}
               </div>
             </div>
           </div>
@@ -218,7 +256,7 @@ const Contact = () => {
                       placeholder="Votre nom"
                       value={formData.nom}
                       onChange={handleChange}
-                      className="h-12 rounded-none border-border bg-background focus:border-secondary"
+                      className="h-12 rounded-2xl border-border bg-background focus:border-secondary"
                       required
                     />
                   </div>
@@ -237,7 +275,7 @@ const Contact = () => {
                       placeholder="votre@email.com"
                       value={formData.email}
                       onChange={handleChange}
-                      className="h-12 rounded-none border-border bg-background focus:border-secondary"
+                      className="h-12 rounded-2xl border-border bg-background focus:border-secondary"
                       required
                     />
                   </div>
@@ -256,7 +294,7 @@ const Contact = () => {
                       value={formData.message}
                       onChange={handleChange}
                       rows={6}
-                      className="resize-none rounded-none border-border bg-background focus:border-secondary"
+                      className="resize-none rounded-2xl border-border bg-background focus:border-secondary"
                       required
                     />
                   </div>

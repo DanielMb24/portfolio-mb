@@ -13,6 +13,7 @@ export interface PersonalInfo {
 
 export interface Project {
   id?: number;
+  _id?: string;
   titre: string;
   description: string;
   technologies: string[];
@@ -32,12 +33,13 @@ export interface Skill {
 
 // Données statiques
 export const staticPersonalInfo: PersonalInfo = {
-  nom_complet: "Mr MAKOSSO",
-  profession: "Développeur Full Stack & Étudiant en Génie Logiciel",
+  nom_complet: "BOUKA MAKOSSO Pierre Daniel",
+  profession: "Développeur web & étudiant en ingénierie informatique",
   localisation: "Libreville, Gabon",
   description_courte:
-    "Passionné par le développement web et la création de solutions numériques innovantes. Spécialisé en React, Node.js et technologies modernes.",
-  email_contact: "mb.daniel241gmail.com",
+    "Développeur passionné, je conçois des applications modernes et performantes. Curieux et rigoureux, j'aime apprendre de nouvelles technologies et contribuer à des projets innovants.",
+  email_contact: "mb.daniel241@gmail.com",
+
   github_url: "https://github.com/DanielMBD",
   linkedin_url: "https://www.linkedin.com/in/daniel-makosso",
   facebook_url: "https://www.facebook.com/daniel.devfullstak",
@@ -47,17 +49,19 @@ export const staticPersonalInfo: PersonalInfo = {
 export const staticProjects: Project[] = [
   {
     id: 1,
+    _id: "portfolio-professionnel",
     titre: "Porfolio professionnel",
     description:
       "Porfolio professionnel, presente les projets, les technologies etc",
     technologies: ["React", "TypeScript", "TailwindCSS"],
-    image_url: "/cpe_pf.png",
+    image_url: "/image.png",
     // github_url: "https://github.com/DanielMb24/web-profile-pro-08",
     demo_url: "https://web-profile-pro-08.vercel.app/",
     statut: "actif",
   },
   {
     id: 2,
+    _id: "application-gestion-taches",
     titre: "Application de gestion des taches",
     description:
       'Application de gestion de tâches inspirée de Trello, conçue avec React, TailwindCSS. Elle permet d’ajouter, modifier, supprimer et organiser les tâches dans trois colonnes ("À faire", "En cours", "Terminé"). La recherche par mots-clés, le dark mode et la sauvegarde automatique via localStorage assurent une expérience utilisateur complète et professionnelle.',
@@ -69,6 +73,7 @@ export const staticProjects: Project[] = [
   },
   {
     id: 3,
+    _id: "application-gestion-modules",
     titre: "Application de gestion de modules",
     description:
       "Application web interactive développée avec React, TailwindCSS et Chart.js, permettant aux utilisateurs de suivre la progression de leurs modules de formation. Elle offre un tableau de bord moderne avec cartes de modules, gestion de progression en temps réel, visualisation par graphique circulaire et persistance via localStorage. L’interface est responsive, intuitive et propose un mode sombre.",

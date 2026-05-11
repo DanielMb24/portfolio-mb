@@ -71,7 +71,9 @@ export const useProject = (id: string | undefined) => {
           "API non disponible, utilisation des données statiques",
           error,
         );
-        const project = staticProjects.find((p) => p._id === id);
+        const project = staticProjects.find(
+          (p) => p._id === id || String(p.id) === id,
+        );
         if (!project) throw new Error("Projet non trouvé");
         return project;
       }
