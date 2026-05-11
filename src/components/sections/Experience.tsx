@@ -28,48 +28,39 @@ const experiences = [
 
 const Experience = () => {
   return (
-    <section id="experience" className="py-20 relative bg-muted/30">
+    <section id="experience" className="section-shell bg-muted/45">
       <div className="container mx-auto px-6">
-        {/* Section Header */}
-        <div className="text-center mb-16 space-y-4">
-          <div className="inline-block">
-            <span className="text-sm font-semibold text-primary uppercase tracking-wider">
-              Parcours
-            </span>
-          </div>
-          <h2 className="text-4xl md:text-5xl font-bold tracking-tight">
+        <div className="mb-12 grid gap-6 md:grid-cols-[0.8fr_1fr] md:items-end">
+          <div className="space-y-4">
+          <span className="section-kicker">Parcours</span>
+          <h2 className="text-4xl md:text-5xl font-extrabold tracking-normal">
             Expérience{" "}
-            <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-              Professionnelle
-            </span>
+            <span className="text-gradient">Professionnelle</span>
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          </div>
+          <p className="text-base leading-7 text-muted-foreground md:text-right">
             Mon parcours professionnel et les entreprises avec lesquelles je
             collabore
           </p>
         </div>
 
-        {/* Timeline */}
         <div className="max-w-4xl mx-auto">
-          <div className="space-y-8">
+          <div className="relative space-y-6 before:absolute before:left-6 before:top-4 before:hidden before:h-[calc(100%-2rem)] before:w-px before:bg-border md:before:block">
             {experiences.map((exp, index) => (
               <Card
                 key={exp.id}
-                className="group border-border/50 hover:border-primary/50 transition-all duration-300 animate-fade-in bg-card/50 backdrop-blur"
+                className="card-modern group animate-fade-in overflow-hidden"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
                 <CardContent className="p-6 md:p-8">
                   <div className="flex flex-col md:flex-row md:items-start gap-6">
-                    {/* Icône */}
                     <div className="flex-shrink-0">
-                      <div className="w-12 h-12 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                        <Briefcase className="text-primary" size={24} />
+                      <div className="w-12 h-12 bg-primary flex items-center justify-center text-primary-foreground shadow-button">
+                        <Briefcase size={24} />
                       </div>
                     </div>
 
-                    {/* Contenu */}
                     <div className="flex-1 space-y-4">
-                      {/* En-tête */}
                       <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-2">
                         <div>
                           <h3 className="text-2xl font-semibold group-hover:text-primary transition-colors">
@@ -80,44 +71,39 @@ const Experience = () => {
                           </p>
                         </div>
 
-                        {/* Badge statut */}
                         {exp.current && (
-                          <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium border border-primary/20">
-                            <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+                          <span className="inline-flex items-center gap-2 border border-secondary/25 bg-secondary/10 px-3 py-1 text-sm font-semibold text-secondary">
+                            <div className="w-2 h-2 rounded-full bg-secondary animate-pulse" />
                             En cours
                           </span>
                         )}
                       </div>
 
-                      {/* Période */}
                       <div className="flex items-center gap-2 text-muted-foreground">
                         <Calendar size={16} />
                         <span className="text-sm">{exp.period}</span>
                       </div>
 
-                      {/* Description */}
                       <p className="text-muted-foreground leading-relaxed">
                         {exp.description}
                       </p>
 
-                      {/* Technologies */}
                       <div className="flex flex-wrap gap-2">
                         {exp.technologies.map((tech) => (
                           <span
                             key={tech}
-                            className="px-3 py-1 text-xs font-medium rounded-full bg-muted text-foreground"
+                            className="rounded-md border border-border bg-background/70 px-2.5 py-1 text-xs font-semibold text-foreground"
                           >
                             {tech}
                           </span>
                         ))}
                       </div>
 
-                      {/* Lien site web */}
                       <a
                         href={exp.website}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors text-sm font-medium"
+                        className="inline-flex items-center gap-2 text-sm font-bold text-secondary transition-colors hover:text-foreground"
                       >
                         Visiter le site
                         <ExternalLink size={16} />

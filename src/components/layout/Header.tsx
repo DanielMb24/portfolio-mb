@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ThemeToggle";
@@ -23,35 +23,53 @@ const Header = () => {
   };
 
   return (
-    <header className="fixed top-0 w-full z-50 glass border-b border-border/10">
+    <header className="fixed top-0 z-50 w-full border-b border-border bg-background/90 backdrop-blur-xl">
       <div className="container mx-auto px-6">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo */}
+        <div className="flex h-16 items-center justify-between">
           <div className="flex-shrink-0">
-            <h1 className="text-xl font-bold gradient-text">Portfolio</h1>
+            <button
+              onClick={() => scrollToSection("#home")}
+              className="group flex items-center gap-3"
+              aria-label="Retour à l'accueil"
+            >
+              <span className="grid h-9 w-9 place-items-center bg-primary text-sm font-black text-primary-foreground shadow-button">
+                DM
+              </span>
+              <span className="hidden text-left sm:block">
+                <span className="block text-sm font-bold leading-none text-foreground">
+                  Daniel Makosso
+                </span>
+                <span className="block text-xs font-medium text-muted-foreground">
+                  Full Stack Developer
+                </span>
+              </span>
+            </button>
           </div>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
+          <nav className="hidden items-center gap-1 border border-border bg-card p-1 shadow-glass md:flex">
             {navItems.map((item) => (
               <button
                 key={item.href}
                 onClick={() => scrollToSection(item.href)}
-                className="text-foreground/80 hover:text-foreground transition-colors duration-200 font-medium"
+                className="px-4 py-2 text-sm font-semibold text-muted-foreground transition-colors duration-200 hover:bg-muted hover:text-foreground"
               >
                 {item.label}
               </button>
             ))}
-            <ThemeToggle />
           </nav>
 
-          {/* Mobile menu button */}
-          <div className="md:hidden flex items-center gap-2">
+          <div className="hidden items-center gap-2 md:flex">
+            <ThemeToggle />
+          </div>
+
+          <div className="flex items-center gap-2 md:hidden">
             <ThemeToggle />
             <Button
               variant="ghost"
               size="sm"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
+              aria-label={isMenuOpen ? "Fermer le menu" : "Ouvrir le menu"}
+              className="rounded-none"
             >
               {isMenuOpen ? (
                 <X className="h-6 w-6" />
@@ -62,15 +80,14 @@ const Header = () => {
           </div>
         </div>
 
-        {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="md:hidden">
-            <div className="px-2 pt-2 pb-3 space-y-1 border-t border-border/10">
+          <div className="pb-4 md:hidden">
+            <div className="space-y-1 border border-border bg-card p-2 shadow-card">
               {navItems.map((item) => (
                 <button
                   key={item.href}
                   onClick={() => scrollToSection(item.href)}
-                  className="block w-full text-left px-3 py-2 text-foreground/80 hover:text-foreground transition-colors duration-200 font-medium"
+                  className="block w-full px-3 py-3 text-left text-sm font-semibold text-muted-foreground transition-colors duration-200 hover:bg-muted hover:text-foreground"
                 >
                   {item.label}
                 </button>
