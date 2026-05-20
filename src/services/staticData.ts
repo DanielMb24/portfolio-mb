@@ -33,8 +33,8 @@ export interface Skill {
 
 // Données statiques
 export const staticPersonalInfo: PersonalInfo = {
-  nom_complet: "BOUKA MAKOSSO Pierre Daniel",
-  profession: "Développeur web & étudiant en ingénierie informatique",
+  nom_complet: "BOUKA MAKOSSO   Pierre Daniel",
+  profession: "Développeur web &   étudiant en ingénierie informatique",
   localisation: "Libreville, Gabon",
   description_courte:
     "Développeur passionné, je conçois des applications modernes et performantes. Curieux et rigoureux, j'aime apprendre de nouvelles technologies et contribuer à des projets innovants.",
